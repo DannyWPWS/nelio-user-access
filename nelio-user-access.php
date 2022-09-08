@@ -23,7 +23,7 @@ add_action( 'admin_menu', 'wpw_melio_add_settings_page' );
 
 function wpw_melio_render_plugin_settings_page() {
     ?>
-    <h2>Example Plugin Settings</h2>
+    <h2>WPW Melio access manager</h2>
     <form action="options.php" method="post">
         <?php 
         settings_fields( 'wpw_melio_plugin_options' );
