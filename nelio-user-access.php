@@ -70,17 +70,15 @@ function wpw_melio_settings_ids() {
     echo "<input id='ids_to_allow' name='wpw_melio_plugin_options[ids_to_allow]' type='text' value='" . esc_attr( $options['ids_to_allow'] ) . "' />";
 }
 
-add_filter(
-    'nelio_content_can_user_manage_plugin',
-    function( $can_manage, $user_id ) {
-        $options = get_option( 'wpw_melio_plugin_options' );
-        if ( isset( $options['ids_to_allow'] ) ) {
-            $ids = explode( ',', $options['ids_to_allow'] );
-            if ( in_array( $user_id, $ids ) ) {
-                return true;
-            }
-        }
-        return $can_manage;
-    }
+add_filter( 'nelio_content_can_user_manage_plugin', 'wpw_add_melio_users', 10, 2 );
 
-);
+function wpw_add_melio_users( $can_manage, $user_id ) {
+    $options = get_option( 'wpw_melio_plugin_options' );
+    if ( isset( $options['ids_to_allow'] ) ) {
+        $ids = explode( ',', $options['ids_to_allow'] );
+        if ( in_array( $user_id, $ids ) ) {
+            return true;
+        }
+    }
+    return $can_manage;
+};
